@@ -1,0 +1,15 @@
+.header-wrapper {
+    padding: 10px;
+    background: #777;
+}
+.header-inner-wrapper {
+    padding: 10px;
+    background: #999;
+}
+
+::slotted(h2) {
+    display: block;
+    margin: 0;
+    padding: 1px 0;
+    color: green;
+}

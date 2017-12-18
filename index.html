@@ -1,1 +1,87 @@
-<h1>Hello World</h1>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap/css/custom.min.css">
+
+    <link rel="import" href="acn-element.html">
+    <link rel="import" href="acn-content.html">
+    <style>
+        acn-content ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        acn-content li {
+            padding: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #999;
+        }
+        .highlight {
+            animation: highlight 1s linear infinite;
+        }
+
+        @keyframes highlight {
+            50% { opacity: 0; }
+        }
+        .header-wrapper {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container text-center">
+    <a class="btn btn-primary" id="add" href="#">Dodaj WebComponent</a>
+</div>
+<div class="container" id="wc">
+
+
+    <acn-content class="jumbotron" search="Sit">
+        <h2 slot="header" class="rounded alert alert-primary">Lista aktualności</h2>
+        <ul slot="content">
+            <li><a href="#">Lorem Ipsum</a></li>
+            <li><a href="#">Dolor Sit Amet</a></li>
+            <li><a href="#">Ugabuga</a></li>
+        </ul>
+    </acn-content>
+
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let button = document.getElementById('add'),
+        site = document.getElementById('wc');
+
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        let acnContentEl = document.createElement('acn-content'),
+            headerEl,
+            contentEl;
+
+        headerEl = document.createElement('h3');
+        headerEl.slot = 'header';
+        headerEl.innerText = 'Lorem Ipsum';
+        acnContentEl.appendChild(headerEl);
+
+        contentEl = document.createElement('div');
+        contentEl.slot = 'content';
+        contentEl.innerHTML = '<div><a href="#">Lorem ipsum dolor sit amet</a></div><div><a href="#">consectetur adipisicing elit</a></div><div><a href="#">sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>'
+        acnContentEl.appendChild(contentEl);
+
+        acnContentEl.setAttribute('search', 'Lorem');
+        site.appendChild(acnContentEl);
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<template>
+    <div>
+        <div class="header-wrapper">
+            <div class="header-inner-wrapper">
+                <h3>Tytuł tego komponentu:</h3>
+                <slot name="header"><h2>domyślny nagłówek</h2></slot>
+
+            </div>
+        </div>
+        <div class="content-wrapper">
+            <div class="content-inner-wrapper">
+                <h3>Zawartość tego komponentu</h3>
+                <slot name="content">treść</slot>
+
+            </div>
+        </div>
+        <h3>Wyszukaj tekst:</h3>
+        <form>
+            <input type="text" id="search" />
+        </form>
+    </div>
+
+
+    <link rel="stylesheet" href="/components.css" />
+    <style>
+        :host {
+            display: block;
+            margin: 20px;
+            padding: 20px;
+            contain: content;
+        }
+        .header-inner-wrapper {
+            background: pink;
+            color: black;
+        }
+    </style>
+</template>
+
+
+
+
+<script>
+var importDocument = document.currentScript.ownerDocument;
+
+class AcnContent extends AcnElement {
+    static get observedAttributes() { return ['search']; }
+
+    constructor() {
+        super(importDocument);
+    }
+
+    onConnected() {
+        let value = this.getAttribute('search') || '';
+
+        this.search(value);
+    }
+
+    onAttributeChanged(attribute, oldValue, value) {
+        if (attribute === 'search') {
+            this.search(value);
+        }
+    }
+
+    search(value) {
+        this.resetSearchResults();
+        this.showSearchResults(value);
+    }
+
+    resetSearchResults() {
+        Array.from(this.querySelectorAll('.highlight'), (el) => {
+            el.classList.remove('highlight');
+        });
+    }
+
+    showSearchResults(value) {
+        if (value !== '') {
+            Array.from(this.querySelectorAll('a'), (el) => {
+                if (el.innerText.indexOf(value) > -1) {
+                    el.classList.add('highlight');
+                }
+            });
+        }
+    }
+}
+
+customElements.define('acn-content', AcnContent);
+</script>

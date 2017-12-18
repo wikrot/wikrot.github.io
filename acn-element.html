@@ -1,0 +1,57 @@
+<script>
+class AcnElement extends HTMLElement {
+    constructor(importDocument) {
+        super();
+        this.importDocument = importDocument;
+        this.oattributes = this.constructor.observedAttributes;
+    }
+
+    connectedCallback() {
+        this.applyTemplate();
+        if (this.oattributes) {
+            this.bindFieldsToAttributes(this.oattributes);
+        }
+        this.onConnected();
+    }
+
+    attributeChangedCallback(attribute, oldValue, newValue) {
+        let isConnected = oldValue !== null;
+
+        if (isConnected) {
+            this.bindAttributeToField(attribute, newValue);
+            this.onAttributeChanged(attribute, oldValue, newValue);
+        }
+    }
+
+    applyTemplate() {
+        let template = this.importDocument.querySelector('template').content;
+        this.attachShadow({mode: 'open'}).appendChild(template.cloneNode(true));
+    }
+
+    bindFieldsToAttributes(observedAttributes) {
+        observedAttributes.forEach((attribute) => {
+            let field = this.shadowRoot.querySelector('#' + attribute);
+
+            if (field) {
+                field.addEventListener('input', (e) => {
+                    this.setAttribute(attribute, field.value);
+                });
+                field.value = this.getAttribute(attribute) || '';
+            }
+        });
+    }
+
+    bindAttributeToField(attribute, newValue) {
+        let field = this.shadowRoot.querySelector('#' + attribute);
+
+        if (field) {
+            field.value = newValue;
+        }
+    }
+
+    onConnected() { }
+
+    onAttributeChanged() { }
+
+}
+</script>
