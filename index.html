@@ -1,11 +1,16 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <script>
+        navigator.serviceWorker.register('/serviceworker.js')
+          .then(reg => console.log('SW działa', reg))
+          .catch(err => console.log('błąd sw', err));
+    </script>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap/css/custom.min.css">
 
-    <link rel="import" href="acn-element.html">
-    <link rel="import" href="acn-content.html">
+    <link rel="import" href="/acn-element.html">
+    <link rel="import" href="/acn-content.html">
     <style>
         acn-content ul {
             list-style: none;
