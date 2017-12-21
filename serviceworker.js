@@ -13,7 +13,7 @@ self.addEventListener('install', (event) => {
         urlsToCache.forEach((url) => {
             cache.add(url);
         });
-    });
+    })
   );
 
 });
@@ -26,6 +26,6 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
   if (url.origin == location.origin && urlsToCache.contains(url.pathname)) {
-    event.respondWith(caches.match(url.pathname)));
+    event.respondWith(caches.match(url.pathname));
   }
 });
