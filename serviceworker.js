@@ -5,7 +5,7 @@ const urlsToCache = [
     '/acn-content.html'
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   console.log('instalowanie serviceworker');
 
   event.waitUntil(
@@ -15,6 +15,7 @@ self.addEventListener('install', event => {
         });
     });
   );
+
 });
 
 self.addEventListener('activate', event => {
