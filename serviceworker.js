@@ -2,8 +2,7 @@ const urlsToCache = [
     '/bootstrap/css/bootstrap.min.css',
     '/bootstrap/css/custom.min.css',
     '/acn-element.html',
-    '/acn-content.html'
-];
+    '/acn-content.html'];
 
 self.addEventListener('install', (event) => {
   console.log('instalowanie serviceworker');
@@ -25,7 +24,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  if (url.origin == location.origin && urlsToCache.contains(url.pathname)) {
+  if (url.origin == location.origin && urlsToCache.indexOf(url.pathname) > -1) {
     event.respondWith(caches.match(url.pathname));
   }
 });
