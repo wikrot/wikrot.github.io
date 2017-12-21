@@ -10,9 +10,9 @@ self.addEventListener('install', (event) => {
 
   event.waitUntil(
     caches.open('static').then((cache) => {
-        urlsToCache.forEach((url) => {
-            cache.add(url);
-        });
+        for (let i = 0; i < urlsToCache.length; i++) {
+            cache.add(urlsToCache[i]);
+        }
     })
   );
 
